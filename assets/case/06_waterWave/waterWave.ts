@@ -10,24 +10,18 @@ const { ccclass, property, executeInEditMode } = cc._decorator;
 @ccclass
 @executeInEditMode
 export default class waterWave extends cc.Component {
-
-    @property(cc.SpriteFrame)
-    map: cc.SpriteFrame = null;
-
-    // @property
-    bluramount: number = 0.03;
+    @property(cc.Texture2D)
+    map: cc.Texture2D = null;
 
     img: cc.Sprite = null;
     material: cc.Material;
     time: number = 0;
     startTime: number = Date.now();
-    resolution = { x: 0.0, y: 0.0 };
 
     onLoad() {
-
         this.img = this.getComponent(cc.Sprite);
         this.material = this.img.getMaterial(0);
-        let mapTexture2D = this.map.getTexture().getImpl();
+        let mapTexture2D = this.map.getImpl();
         console.log(mapTexture2D);
         // this.material.effect["_passes"][0]["_properties"]["texture"]["value"] = mapTexture2D;
         // this.material["_effect"]["_properties"]["map"]["value"] = mapTexture2D;
@@ -36,9 +30,8 @@ export default class waterWave extends cc.Component {
     }
 
     update() {
-        this.time = (Date.now() - this.startTime) / 1000;
-        this.material.effect.setProperty('u_time', this.time);
-
+        // this.time = (Date.now() - this.startTime) / 1000;
+        this.material.setProperty('u_time', this.time);
     }
 
 

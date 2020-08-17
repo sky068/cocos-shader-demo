@@ -12,7 +12,7 @@ CCEffect %{
         cullMode: none
       properties:
         texture: { value: white }
-        map: { value: white }
+        map: { value: white }  // 法线贴图
         alphaThreshold: { value: 0.5 }
 }%
 
@@ -52,11 +52,18 @@ CCProgram vs %{
 }%
 
 
+// 如果cc_time不能用则需要在外部传入时间
+// 可以这样做:
+// this.material.setProperty('u_time', this.time);
+// uniform FragConstants {
+//   float u_time;
+// };
 CCProgram fs %{
   precision highp float;
   
   #include <alpha-test>
   #include <texture>
+  #include <cc-global>
 
   in vec4 v_color;
 
@@ -68,15 +75,15 @@ CCProgram fs %{
 
   uniform FragConstants {
     float u_time;
-    
   };
 
   void main()
   {
-    vec4 t_map = texture2D(map, fract(v_uv0 + u_time));
+    // vec4 t_map = texture2D(map, fract(v_uv0 + u_time));
+    vec4 t_map = texture2D(map, fract(v_uv0 + cc_time.x * 0.2));
     float offset = t_map.g;
-    float scaleX = 0.02;
-    float scaleY = 0.02;
+    float scaleX = 0.05;
+    float scaleY = 0.05;
 
     vec2 uv = vec2(
       v_uv0.x + offset * scaleX,
