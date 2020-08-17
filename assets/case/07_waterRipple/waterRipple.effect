@@ -82,7 +82,7 @@ CCProgram fs %{
 
   void main() {
     vec2 tc = v_uv0;
-    vec2 uv = vec2(0.0, 0.0);
+    vec2 uv = vec2(1.0, 1.0);
     vec2 p;
     float len;
     vec2 uv_offset;

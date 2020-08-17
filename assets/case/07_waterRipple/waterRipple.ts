@@ -39,6 +39,7 @@ export default class waterRipple extends cc.Component {
         this.material.effect.setProperty('amp', this.amp);
         this.material.effect.setProperty('waves', this.waves);
         this.material.effect.setProperty('speed', this.speed);
+        this.material.effect.setProperty('progress', 1.0);
 
         console.log(this.material);
     }
@@ -51,7 +52,6 @@ export default class waterRipple extends cc.Component {
         this.material.effect.setProperty('progress', 0.0);
     }
 
-
     update(dt: number) {
         this.time += dt;
         this.material.effect.setProperty('u_time', this.time);
@@ -63,6 +63,4 @@ export default class waterRipple extends cc.Component {
             this.material.effect.setProperty('progress', progress);
         }
     }
-
-
 }
